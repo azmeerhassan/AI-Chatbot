@@ -18,6 +18,7 @@ const createMessageElement = (content, classes)=>{
 const handleOutgoingMessage = (e)=>{
     e.preventDefault();
     userData.message = messageInput.value.trim();
+    messageInput.value ="";
     //create user message
    const messageContent = `<div class="message-text"></div>`;
    const outGoingMessageDiv = createMessageElement(messageContent, "user-message")
