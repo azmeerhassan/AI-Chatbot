@@ -19,8 +19,9 @@ const handleOutgoingMessage = (e)=>{
     e.preventDefault();
     userData.message = messageInput.value.trim();
     //create user message
-   const messageContent = `<div class="message-text">${userData.message}</div>`;
+   const messageContent = `<div class="message-text"></div>`;
    const outGoingMessageDiv = createMessageElement(messageContent, "user-message")
+   outGoingMessageDiv.querySelector(".message-text").textContent = userData.message;
    chatBody.appendChild(outGoingMessageDiv);
 }
 // handle enter key press for sending messages
