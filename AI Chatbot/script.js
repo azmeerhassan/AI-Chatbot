@@ -41,7 +41,7 @@ const generateBotResponse = async(incomingMessageDiv)=>{
         if(!response.ok) throw new Error(data.error.message);
 
         //extract and display bot's response text
-        const apiResponseText = data.candidates[0].content.parts[0].text.trim();
+        const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
         messageElement.innerText = apiResponseText;
     }
     catch (error){
@@ -49,6 +49,7 @@ const generateBotResponse = async(incomingMessageDiv)=>{
     }
     finally{
         incomingMessageDiv.classList.remove("thinking");
+        chatBody.scrollTo({top:chatBody.scrollHeight, behavior:"smooth"})
     }
 }
 
@@ -62,6 +63,7 @@ const handleOutgoingMessage = (e)=>{
    const outGoingMessageDiv = createMessageElement(messageContent, "user-message")
    outGoingMessageDiv.querySelector(".message-text").textContent = userData.message;
    chatBody.appendChild(outGoingMessageDiv);
+   chatBody.scrollTo({top:chatBody.scrollHeight, behavior:"smooth"})
 //simulate bot response with thinking indicator after a delay
    setTimeout(()=>{
     const messageContent = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
@@ -76,6 +78,7 @@ const handleOutgoingMessage = (e)=>{
     const incomingMessageDiv = createMessageElement(messageContent, "bot-message", "thinking")
     
     chatBody.appendChild(incomingMessageDiv);
+    chatBody.scrollTo({top:chatBody.scrollHeight, behavior:"smooth"})
     generateBotResponse(incomingMessageDiv);
 
    },600)
