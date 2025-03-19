@@ -1,3 +1,4 @@
+//26:28
 const chatBody = document.querySelector(".chat-body")
 const messageInput = document.querySelector(".message-input");
 
