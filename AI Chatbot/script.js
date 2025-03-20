@@ -3,6 +3,7 @@ const chatBody = document.querySelector(".chat-body")
 const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
 const fileInput = document.querySelector("#file-input");
+const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 
 //API Setup
 const API_KEY ="AIzaSyBrw0clNX4srHfijhHg_pbyJ3BMzQPuRVc";
@@ -112,6 +113,8 @@ fileInput.addEventListener("change", ()=>{
 
     const reader = new FileReader();
     reader.onload = (e) =>{
+        fileUploadWrapper.querySelector("img").src = e.target.result;
+        fileUploadWrapper.classList.add("file-uploaded");
         const base64String = e.target.result.split(",")[1];
 
         //Store file data in userdData
