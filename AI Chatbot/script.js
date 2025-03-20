@@ -33,11 +33,11 @@ const generateBotResponse = async(incomingMessageDiv)=>{
         Headers: { "Content-Type": "application/json"},
         body: JSON.stringify({
             contents: [{
-                "parts":[{text: userData.message}]
-                }]
-        }
+                "parts":[{text: userData.message}, ...(userData.file.data ? [{inline_data: userData.file}]:
+                [])]
+        }]
 
-        )
+    })
     }
     try{
         //Fetch bot response from API
@@ -114,7 +114,7 @@ fileInput.addEventListener("change", ()=>{
             data:base64String,
             mime_type: file.type
         }
-        console.log(userData);
+        fileInput.value = "";
     }
     reader.readAsDataURL(file);
     
