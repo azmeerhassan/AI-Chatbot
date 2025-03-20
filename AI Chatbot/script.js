@@ -9,7 +9,11 @@ const API_KEY ="AIzaSyBrw0clNX4srHfijhHg_pbyJ3BMzQPuRVc";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
 const userData = {
-    message: null
+    message: null,
+    file:{
+        data:null,
+        mime_type: null
+    }
 }
 
 //Created message element with dynamic classes and return it
@@ -95,11 +99,24 @@ messageInput.addEventListener("keydown", (e)=>{
    }
 })
 
+
+//handle file input change
 fileInput.addEventListener("change", ()=>{
     const file = fileInput.files[0];
     if(!file) return;
 
-    console.log(file);
+    const reader = new FileReader();
+    reader.onload = (e) =>{
+        const base64String = e.target.result.split(",")[1];
+
+        //Store file data in userdData
+        userData.file ={
+            data:base64String,
+            mime_type: file.type
+        }
+        console.log(userData);
+    }
+    reader.readAsDataURL(file);
     
 })
 
