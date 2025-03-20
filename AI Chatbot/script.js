@@ -4,6 +4,7 @@ const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
 const fileInput = document.querySelector("#file-input");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+const fileCancelButton = document.querySelector("#file-cancel");
 
 //API Setup
 const API_KEY ="AIzaSyBrw0clNX4srHfijhHg_pbyJ3BMzQPuRVc";
@@ -69,6 +70,7 @@ const handleOutgoingMessage = (e)=>{
     e.preventDefault();
     userData.message = messageInput.value.trim();
     messageInput.value ="";
+    fileUploadWrapper.classList.remove("file-uploaded")
     //create user message
    const messageContent = `<div class="message-text"></div>
                             ${userData.file.data ? `<img src="data:${userData.file.mime_type};base64,${userData.file.data}" class = "attachment" />` : ""}`;
@@ -126,6 +128,13 @@ fileInput.addEventListener("change", ()=>{
     }
     reader.readAsDataURL(file);
     
+})
+
+
+//Cancel file upload
+fileCancelButton.addEventListener("click", ()=>{
+    userData.file = {};
+    fileUploadWrapper.classList.remove("file-uploaded")
 })
 
 sendMessageButton.addEventListener("click", (e)=>{
