@@ -21,6 +21,7 @@ const userData = {
     }
 }
 
+const chatHistory = [];
 const initialInputHeight = messageInput.scrollHeight;
 
 //Created message element with dynamic classes and return it
@@ -34,15 +35,18 @@ const createMessageElement = (content, ...classes)=>{
 //generate bot response using API
 const generateBotResponse = async(incomingMessageDiv)=>{
     const messageElement = incomingMessageDiv.querySelector(".message-text")
+    //add user message to chat history
+    chatHistory.push({
+        role : "user",
+        "parts":[{text: userData.message}, ...(userData.file.data ? [{inline_data: userData.file}]:
+        [])]
+});
     //API request options
     const requestOptions = {
         method: "POST",
         Headers: { "Content-Type": "application/json"},
         body: JSON.stringify({
-            contents: [{
-                "parts":[{text: userData.message}, ...(userData.file.data ? [{inline_data: userData.file}]:
-                [])]
-        }]
+            contents: chatHistory
 
     })
     }
@@ -55,6 +59,12 @@ const generateBotResponse = async(incomingMessageDiv)=>{
         //extract and display bot's response text
         const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
         messageElement.innerText = apiResponseText;
+        //add bot response to chat history
+        chatHistory.push({
+            role : "model",
+            "parts":[{text: userData.message}]
+    });
+
     }
     catch (error){
         //handle error in API response
