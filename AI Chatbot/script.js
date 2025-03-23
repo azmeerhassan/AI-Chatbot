@@ -1,4 +1,4 @@
-//26:28
+
 const chatBody = document.querySelector(".chat-body")
 const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
@@ -82,6 +82,7 @@ const generateBotResponse = async(incomingMessageDiv)=>{
 
 //handle outgoing user messages
 const handleOutgoingMessage = (e)=>{
+    //Create and display user messages
     e.preventDefault();
     userData.message = messageInput.value.trim();
     messageInput.value ="";
@@ -115,9 +116,10 @@ const handleOutgoingMessage = (e)=>{
    },600)
 }
 // handle enter key press for sending messages
+
 messageInput.addEventListener("keydown", (e)=>{
    const userMessage = e.target.value.trim();
-   if(e.key == "Enter" && userMessage && !e.shiftKey &&window.innerWidth > 768)
+   if(e.key === "Enter" && userMessage && !e.shiftKey &&window.innerWidth > 768)
    {
     handleOutgoingMessage(userMessage);
    }

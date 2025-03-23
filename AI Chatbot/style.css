@@ -50,6 +50,7 @@ body.show-chatbot #chatbot-toggler span:last-child{
 
 .chatbot-popup{
     position: fixed;
+    
     right: 35px;
     bottom: 90px;
     width: 420px;
@@ -93,6 +94,7 @@ body.show-chatbot, .chatbot-popup{
     fill: #5350C4;
     background: #fff;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .header-info .logo-text{
